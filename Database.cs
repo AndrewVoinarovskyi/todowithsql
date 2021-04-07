@@ -8,11 +8,12 @@ namespace TodoList
     class Database
     {
         NpgsqlConnection conn;
-        List<TodoItem> todoList = new List<TodoItem>();
+        List<TodoItem> todoList;
         public Database(string connString)
         {
             this.conn = new NpgsqlConnection(connString);
             this.conn.Open();
+            todoList = new List<TodoItem>();
         }
 
         public List<TodoItem> Read()
@@ -33,9 +34,9 @@ namespace TodoList
                         item.DueDate = reader.GetDateTime(4);
                     };
 
-                    char doneFlag = item.Done ? 'x' : ' ';
-                    Console.WriteLine($"- [{doneFlag}]\t{item.Id}\t{item.Title}\n" +
-                                        $"\t{item.Description}");
+                    // char doneFlag = item.Done ? 'x' : ' ';
+                    // Console.WriteLine($"- [{doneFlag}]\t{item.Id}\t{item.Title}\n" +
+                    //                     $"\t{item.Description}");
                     todoList.Add(item);
                 }
             return todoList;
